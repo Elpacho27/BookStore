@@ -43,6 +43,24 @@ public class ApplicationDbContext : DbContext
 
             );
 
+        modelBuilder.Entity<Product>().HasData(
+
+            new
+            {
+                Id=4,
+                Title="first product",
+                Description="tttt",
+                ISBN="ISBN",
+                Author="author",
+                ListPrice=0.3,
+                Price=0.5,
+                Price50=0.4,
+                Price100=0.9
+
+            }
+
+            );
+
     
         
     }

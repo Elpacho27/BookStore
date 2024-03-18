@@ -27,11 +27,19 @@
     <thead>
         <tr>
             <th>
-                Product Name
+                Title
             </th>
             <th>
-                Description
+                ISBN
             </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Price
+            </th>
+
+
         </tr>
     </thead>
     <tbody>
@@ -39,18 +47,27 @@
         {
             <tr>
                 <td>
-                    @product.Name
+                    @product.Title
                 </td>
                 <td>
-                    @product.Description
+                    @product.ISBN
                 </td>
+                <th>
+                    @product.Author
+                </th>
+                <th>
+                    @product.Price
+                </th>
+
+
+
                 <td>
                     <div class="w-75 btnbtn-group" role="group">
-                        <a asp-controller="Product" asp-action="Edit" asp-route-categoryId="@product.Id" class="btn btn-primary mx-2">
+                        <a asp-controller="Product" asp-action="Edit" asp-route-productId="@product.Id" class="btn btn-primary mx-2">
                             <i class="bi bi-pencil-square"></i> Edit
                         </a>
 
-                        <a asp-controller="Product" asp-action="Delete" asp-route-categoryId="@product.Id" class="btn btn-danger mx-2">
+                        <a asp-controller="Product" asp-action="Delete" asp-route-productId="@product.Id" class="btn btn-danger mx-2">
                             <i class="bi bi-trash"></i> Delete
                         </a>
                     </div>
