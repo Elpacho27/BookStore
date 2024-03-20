@@ -74,11 +74,18 @@ namespace BookStore.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -100,6 +107,8 @@ namespace BookStore.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -107,14 +116,27 @@ namespace BookStore.DataAccess.Migrations
                         {
                             Id = 4,
                             Author = "author",
+                            CategoryID = 1,
                             Description = "tttt",
                             ISBN = "ISBN",
+                            ImageURL = "",
                             ListPrice = 0.29999999999999999,
                             Price = 0.5,
                             Price100 = 0.90000000000000002,
                             Price50 = 0.40000000000000002,
                             Title = "first product"
                         });
+                });
+
+            modelBuilder.Entity("BookStore.Models.Models.Product", b =>
+                {
+                    b.HasOne("BookStore.Models.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

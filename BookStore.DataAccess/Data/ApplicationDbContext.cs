@@ -55,16 +55,12 @@ public class ApplicationDbContext : DbContext
                 ListPrice=0.3,
                 Price=0.5,
                 Price50=0.4,
-                Price100=0.9
+                Price100=0.9,
+                CategoryID=1,
+                ImageURL=""
 
             }
 
-            );
-
-    
-        
+            );   
     }
-
-
-
 }

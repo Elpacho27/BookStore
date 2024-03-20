@@ -6233,6 +6233,7 @@ textarea.form-control-lg {
 }
 
 .modal-footer {
+    
     display: flex;
     flex-shrink: 0;
     flex-wrap: wrap;
@@ -6243,6 +6244,7 @@ textarea.form-control-lg {
     border-top: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);
     border-bottom-right-radius: var(--bs-modal-inner-border-radius);
     border-bottom-left-radius: var(--bs-modal-inner-border-radius);
+    
 }
 
     .modal-footer > * {
