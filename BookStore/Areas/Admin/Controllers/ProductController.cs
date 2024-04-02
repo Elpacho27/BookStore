@@ -69,7 +69,7 @@ namespace BookStore.Areas.Admin.Controllers
 
                 if (file != null)
                 {
-                    string fileName = Guid.NewGuid().ToString();
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
                     if (!string.IsNullOrEmpty(productViewModel.Product.ImageURL))
@@ -88,7 +88,7 @@ namespace BookStore.Areas.Admin.Controllers
 
 
                     }
-                    productViewModel.Product.ImageURL = @"images\product\" + fileName;
+                    productViewModel.Product.ImageURL = @"\images\product\" + fileName;
                 }
 
                 if(productViewModel.Product.Id== 0)
@@ -117,7 +117,7 @@ namespace BookStore.Areas.Admin.Controllers
             }
 
 
-            public IActionResult Delete(int? productId)
+            /*public IActionResult Delete(int? productId)
             {
                 if (productId == null || productId == 0)
                 {
@@ -149,6 +149,37 @@ namespace BookStore.Areas.Admin.Controllers
                 TempData["success"] = "Product deleted successfully";
                 return RedirectToAction("Index", "Product");
 
+            }*/
+
+        #region API Calls
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new { data = productList });
+        }
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var product = _unitOfWork.Product.Get(p => p.Id == id);
+            if (product == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+            else
+            {
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, product.ImageURL.Trim('\\'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+                _unitOfWork.Product.Delete(product);
+                _unitOfWork.Save();
+                return Json(new { success = true, message = "Deleted successfully" });
             }
         }
-    } 
+        #endregion
+    }
+
+
+} 
