@@ -18,6 +18,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Product> Products { get; set; }
 
+    public DbSet<Company> Companies { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -61,6 +63,24 @@ public class ApplicationDbContext : DbContext
 
             }
 
-            );   
+            );
+
+        modelBuilder.Entity<Company>().HasData(
+
+            new
+            {
+                Id = 1,
+                Name = "FootLocker",
+                StreetAddress = "Lincoln Street 44",
+                City = "Florida",
+                State = "Florida",
+                PostalCode = 31511,
+                PhoneNumber = "099222",
+                
+
+            }
+
+            );
+
     }
 }

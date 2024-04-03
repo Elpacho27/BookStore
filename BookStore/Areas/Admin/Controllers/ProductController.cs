@@ -27,7 +27,7 @@ namespace BookStore.Areas.Admin.Controllers
             return View(productlist);
         }
 
-        public IActionResult Upsert(int? productId)
+        public IActionResult Upsert(int? id)
         {
             IEnumerable<SelectListItem> categoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem
             {
@@ -47,7 +47,7 @@ namespace BookStore.Areas.Admin.Controllers
 
             };
 
-            if (productId == null || productId == 0)
+            if (id == null || id == 0)
             {
                 //Create
                 return View(productViewModel);
@@ -55,9 +55,8 @@ namespace BookStore.Areas.Admin.Controllers
             else
             {
                 //Update
-                productViewModel.Product = _unitOfWork.Product.Get(p => p.Id == productId);
+                productViewModel.Product = _unitOfWork.Product.Get(p => p.Id == id);
                 return View(productViewModel);
-
             }
         }
         [HttpPost]
