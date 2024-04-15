@@ -1,14 +1,13 @@
 ﻿using BookStore.Models.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 
 namespace BookStore.DataAccess.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext :IdentityDbContext<IdentityUser>
 {
-
-
-
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
 
@@ -20,9 +19,16 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Company> Companies { get; set; }
 
+    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Category>().HasData(
             new 
             {
