@@ -2,7 +2,9 @@
 using BookStore.DataAccess.Repository.IRepository;
 using BookStore.Models.Models;
 using BookStore.Models.ViewModels;
+using BookStore.Utility;
 using Elfie.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -10,6 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace BookStore.Areas.Admin.Controllers;
 [Area("Admin")]
+[Authorize(Roles = Role.Role_Admin)]
 public class ProductController : Controller
 {
 
