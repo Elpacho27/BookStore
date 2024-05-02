@@ -177,6 +177,8 @@ namespace BookStore.Areas.Identity.Pages.Account
                 user.State= Input.State;
                 user.Name= Input.Name;
 
+
+
                 if (Input.Role == "Company")
                 {
                    user.CompanyId= Input.CompanyId;
