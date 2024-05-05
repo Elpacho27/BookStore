@@ -171,7 +171,7 @@ namespace BookStore.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.StreetAddress = Input.StreetAddress;
                 user.City = Input.City;
-                user.PhoneNumber= Input.PhoneNumber;
+                
                 user.Email = Input.Email;
                 user.PostalCode = Input.PostalCode;
                 user.State= Input.State;
@@ -187,6 +187,8 @@ namespace BookStore.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     if (!string.IsNullOrEmpty(Input.Role))

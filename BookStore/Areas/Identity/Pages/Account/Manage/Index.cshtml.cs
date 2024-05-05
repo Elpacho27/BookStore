@@ -58,6 +58,7 @@ namespace BookStore.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
         }
 
         private async Task LoadAsync(IdentityUser user)
@@ -96,21 +97,23 @@ namespace BookStore.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
+                
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
+            
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                user.PhoneNumberConfirmed = true;
+                await _userManager.UpdateAsync(user);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
-            }
+            
 
             await _signInManager.RefreshSignInAsync(user);
+            
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
