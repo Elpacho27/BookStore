@@ -62,25 +62,26 @@ public class ShoppingCartController : Controller
     }
     public IActionResult Plus(int cartId)
     {
-        var cartFromDb=_unitOfWork.ShoppingCart.Get(sc=>sc.Id == cartId);
-        cartFromDb.Count +=1;
+        var cartFromDb=_unitOfWork.ShoppingCart.Get(c=>c.Id == cartId);
+        cartFromDb.Count=cartFromDb.Count+1;
 
         _unitOfWork.ShoppingCart.Update(cartFromDb);
+
         _unitOfWork.Save();
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index");
     }
 
     public IActionResult Minus(int cartId)
     {
-        var cartFromDb=_unitOfWork.ShoppingCart.Get(sc=>sc.Id==cartId);
+        var cartFromDb=_unitOfWork.ShoppingCart.Get(c=>c.Id==cartId);
         if (cartFromDb.Count <= 1)
         {
             _unitOfWork.ShoppingCart.Delete(cartFromDb);
         }
         else
         {
-            cartFromDb.Count -= 1;
+            cartFromDb.Count = cartFromDb.Count-1;
             _unitOfWork.ShoppingCart.Update(cartFromDb);
         }
 
@@ -91,9 +92,10 @@ public class ShoppingCartController : Controller
 
     public IActionResult Remove(int cartId)
     {
-        var cartFromDb=_unitOfWork.ShoppingCart.Get(sc=>sc.Id==cartId);
+        var cartFromDb=_unitOfWork.ShoppingCart.Get(c=>c.Id==cartId);
 
         _unitOfWork.ShoppingCart.Delete(cartFromDb);
+
         _unitOfWork.Save();
 
         return RedirectToAction(nameof(Index));
