@@ -30,3 +30,7 @@ body {
     color: white !important;
     font-weight: lighter;
 }
+
+#tblDataCompany {
+    background-color: white;
+}

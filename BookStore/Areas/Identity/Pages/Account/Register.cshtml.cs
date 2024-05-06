@@ -121,7 +121,7 @@ namespace BookStore.Areas.Identity.Pages.Account
 
             public string? StreetAddress { get; set; }
 
-            public int? PostalCode { get; set; }
+            public string? PostalCode { get; set; }
 
             public string? State { get; set; }
 

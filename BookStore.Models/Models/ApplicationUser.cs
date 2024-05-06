@@ -19,12 +19,12 @@ namespace BookStore.Models.Models
         [ForeignKey("CompanyId")]
         [ValidateNever]
         public Company Company { get; set; }
-        public string? PhoneNumber { get; set; }
+        
         public string? StreetAddress { get; set; }
         public string? State { get; set; }
 
         public string? City { get; set; }
-        public int? PostalCode { get; set; }
+        public string? PostalCode { get; set; }
     }
 
 }
